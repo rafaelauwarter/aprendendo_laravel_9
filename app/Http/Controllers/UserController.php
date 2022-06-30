@@ -24,4 +24,19 @@ class UserController extends Controller
         // dd($user);
         // dd('users.show', $id);
     }
+
+    public function create(){
+        return view('users.create');
+    }
+
+    public function store(Request $request){
+        $data = $request->all();
+        $data['password'] = bcrypt($request->password);
+        User::create($data);
+
+        return redirect()->route('users.index');
+        // dd($request->only([
+        //     'name', 'email', 'password'
+        // ]));
+    }
 }
